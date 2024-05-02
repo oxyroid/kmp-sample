@@ -16,7 +16,12 @@ expect class Factory {
 val AppDatabase: AppDatabase by lazy {
     Factory.instance
         .createAppDatabaseBuilder()
+        // driver
         .setDriver(BundledSQLiteDriver())
+        // migrations
+//        .addMigrations()
+        // type converter
+//        .addTypeConverter()
         .fallbackToDestructiveMigrationOnDowngrade(true)
         .fallbackToDestructiveMigration(true)
         .build()

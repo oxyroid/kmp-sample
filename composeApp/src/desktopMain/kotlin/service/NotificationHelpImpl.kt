@@ -3,6 +3,8 @@ package service
 class NotificationHelpImpl : NotificationHelper {
     private val title = "KMP Notification"
     override fun notify(msg: String) {
+        // Unresolved reference: Toast
+//        Toast.makeText(...
         val os = System.getProperty("os.name")
         val process = when {
             os.contains("mac", true) -> {
