@@ -1,14 +1,8 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Desktop.
+# References
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
-
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
-
-
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+- Kotlin Multiplatform Wizard https://kmp.jetbrains.com
+- Coil 3.X https://coil-kt.github.io/coil/upgrading_to_coil3/#multiplatform
+- Kotlinx Coroutine https://github.com/Kotlin/kotlinx.coroutines?tab=readme-ov-file#multiplatform
+- Sqlite KMP https://developer.android.com/kotlin/multiplatform/sqlite
+- Room KMP https://developer.android.com/kotlin/multiplatform/room
+- Retrofit https://square.github.io/retrofit/
