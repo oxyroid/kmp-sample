@@ -10,14 +10,17 @@ import retrofit2.http.GET
 interface NewsApi {
     @GET("top-headlines/category/health/in.json")
     suspend fun fetch(): NewsDto?
+}
 
-    companion object {
-        fun create(): NewsApi = Retrofit.Builder()
-            .baseUrl("https://saurav.tech/NewsAPI/")
-            .addConverterFactory(
-                Json.asConverterFactory("application/json".toMediaType())
-            )
-            .build()
-            .create()
-    }
+val RetrofitNewsApi: NewsApi by lazy {
+    RetrofitClient.create()
+}
+
+private val RetrofitClient by lazy {
+    Retrofit.Builder()
+        .baseUrl("https://saurav.tech/NewsAPI/")
+        .addConverterFactory(
+            Json.asConverterFactory("application/json".toMediaType())
+        )
+        .build()
 }

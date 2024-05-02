@@ -39,24 +39,26 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import api.NewsApi
+import api.RetrofitNewsApi
 import api.toArticle
 import coil3.compose.AsyncImage
 import database.entity.Article
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
 fun App() {
-    val newsApi = remember { NewsApi.create() }
-    val database = remember { Factory.instance.createAppDatabase() }
-    val articleDao = remember { database.articleDao() }
+    val newsApi = RetrofitNewsApi
+    val articleDao = remember { AppDatabase.articleDao() }
+    val notificationHelper = NotificationHelper
 
-    val articles by articleDao.observeAll().collectAsState(initial = emptyList())
-
+    // coroutine scope in compose
     val coroutineScope = rememberCoroutineScope()
+
+    val articles by articleDao.observeAll().collectAsState(
+        initial = emptyList()
+    )
 
     MaterialTheme {
         Box {
@@ -73,8 +75,9 @@ fun App() {
             ) {
                 FloatingActionButton(
                     onClick = {
-                        coroutineScope.launch(Dispatchers.IO) {
+                        coroutineScope.launch {
                             articleDao.deleteAll()
+                            notificationHelper.notify("delete all success!")
                         }
                     },
                 ) {
@@ -85,7 +88,7 @@ fun App() {
                 }
                 FloatingActionButton(
                     onClick = {
-                        coroutineScope.launch(Dispatchers.IO) {
+                        coroutineScope.launch {
                             val newArticles = newsApi
                                 .fetch()
                                 ?.articles
